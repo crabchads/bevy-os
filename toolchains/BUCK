@@ -1,0 +1,43 @@
+load("@prelude//toolchains:cxx.bzl", "system_cxx_toolchain")
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("@prelude//toolchains:genrule.bzl", "system_genrule_toolchain")
+load("@prelude//toolchains:python.bzl", "system_python_bootstrap_toolchain", "system_python_toolchain")
+
+system_python_toolchain(
+    name = "python",
+    visibility = ["PUBLIC"],
+)
+
+system_python_bootstrap_toolchain(
+    name = "python_bootstrap",
+    visibility = ["PUBLIC"],
+)
+
+system_rust_toolchain(
+    name = "rust",
+    default_edition = "2024",
+    visibility = ["PUBLIC"],
+    rustc_target_triple = select({
+        "prelude//os:none": select({
+            "prelude//cpu:arm64": "aarch64-unknown-none-softfloat",
+        }),
+        "DEFAULT": "aarch64-apple-darwin",
+    }),
+)
+
+system_genrule_toolchain(
+    name = "genrule",
+    visibility = ["PUBLIC"],
+)
+
+system_cxx_toolchain(
+    name = "cxx",
+    cxx_flags = ["-std=c++26"],
+    linker = select({
+        "config//os:none": select({
+            "config//cpu:arm64": "ld.lld",
+        }),
+        "DEFAULT": "clang++",
+    }),
+    visibility = ["PUBLIC"],
+)

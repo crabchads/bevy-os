@@ -1,0 +1,7 @@
+load(":defs.bzl", "platforms")
+
+platforms(
+    name = "baremetal-arm64",
+    cpu_configuration = "config//cpu:arm64",
+    os_configuration = "config//os:none",
+)

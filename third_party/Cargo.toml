@@ -1,0 +1,22 @@
+[workspace]
+
+[package]
+name = "rust-third-party"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+# Dummy target to keep Cargo happy
+[[bin]]
+name = "fake"
+path = "/dev/null"
+
+[dependencies.bevy]
+git = "https://github.com/bushrat011899/bevy"
+branch = "NoSTDForBevyItselfV2"
+default-features = false
+features = [
+    "default_no_std",
+]
+
+[dependencies]

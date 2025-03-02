@@ -1,0 +1,12 @@
+[package]
+name = "bevy-os"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies.bevy]
+git = "https://github.com/bushrat011899/bevy"
+branch = "NoSTDForBevyItselfV2"
+default-features = false
+features = [
+    "default_no_std",
+]

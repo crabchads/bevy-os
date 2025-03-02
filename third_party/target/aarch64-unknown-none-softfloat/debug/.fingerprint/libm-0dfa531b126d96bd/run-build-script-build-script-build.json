@@ -1,0 +1,1 @@
+{"rustc":6560579996391851404,"features":"","declared_features":"","target":0,"profile":0,"path":0,"deps":[[16656650217881724573,"build_script_build",false,744448664086564313]],"local":[{"RerunIfChanged":{"output":"aarch64-unknown-none-softfloat/debug/build/libm-0dfa531b126d96bd/output","paths":["build.rs"]}}],"rustflags":[],"config":0,"compile_kind":0}
