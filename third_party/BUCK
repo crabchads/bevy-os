@@ -60,6 +60,7 @@ cargo.rust_library(
     crate = "arrayvec",
     crate_root = "arrayvec-0.7.6.crate/src/lib.rs",
     edition = "2018",
+    features = ["std"],
     visibility = [],
 )
 
@@ -742,6 +743,7 @@ cargo.rust_library(
     crate = "bumpalo",
     crate_root = "bumpalo-3.17.0.crate/src/lib.rs",
     edition = "2021",
+    features = ["default"],
     visibility = [],
 )
 
@@ -908,6 +910,10 @@ cargo.rust_library(
     crate = "critical_section",
     crate_root = "critical-section-1.2.0.crate/src/lib.rs",
     edition = "2018",
+    features = [
+        "restore-state-bool",
+        "std",
+    ],
     visibility = [],
 )
 
@@ -1021,6 +1027,7 @@ cargo.rust_library(
     crate = "disqualified",
     crate_root = "disqualified-1.0.0.crate/src/lib.rs",
     edition = "2021",
+    features = ["alloc"],
     visibility = [],
 )
 
@@ -1038,6 +1045,7 @@ cargo.rust_library(
     crate = "downcast_rs",
     crate_root = "downcast-rs-2.0.1.crate/src/lib.rs",
     edition = "2021",
+    features = ["std"],
     visibility = [],
 )
 
@@ -1089,6 +1097,7 @@ cargo.rust_library(
     crate = "either",
     crate_root = "either-1.14.0.crate/src/lib.rs",
     edition = "2021",
+    features = ["use_std"],
     visibility = [],
 )
 
@@ -1165,6 +1174,11 @@ cargo.rust_library(
     crate = "fastrand",
     crate_root = "fastrand-2.3.0.crate/src/lib.rs",
     edition = "2018",
+    features = [
+        "alloc",
+        "default",
+        "std",
+    ],
     visibility = [],
 )
 
@@ -1182,6 +1196,7 @@ cargo.rust_library(
     crate = "fixedbitset",
     crate_root = "fixedbitset-0.5.7.crate/src/lib.rs",
     edition = "2021",
+    features = ["std"],
     visibility = [],
 )
 
@@ -1199,6 +1214,7 @@ cargo.rust_library(
     crate = "foldhash",
     crate_root = "foldhash-0.1.4.crate/src/lib.rs",
     edition = "2021",
+    features = ["std"],
     visibility = [],
 )
 
@@ -1216,6 +1232,10 @@ cargo.rust_library(
     crate = "futures_core",
     crate_root = "futures-core-0.3.31.crate/src/lib.rs",
     edition = "2018",
+    features = [
+        "alloc",
+        "std",
+    ],
     visibility = [],
 )
 
@@ -1233,6 +1253,10 @@ cargo.rust_library(
     crate = "futures_io",
     crate_root = "futures-io-0.3.31.crate/src/lib.rs",
     edition = "2018",
+    features = [
+        "default",
+        "std",
+    ],
     visibility = [],
 )
 
@@ -1500,6 +1524,7 @@ cargo.rust_library(
     crate = "libm",
     crate_root = "libm-0.2.11.crate/src/lib.rs",
     edition = "2021",
+    features = ["default"],
     visibility = [],
 )
 
@@ -1517,6 +1542,7 @@ cargo.rust_library(
     crate = "log",
     crate_root = "log-0.4.26.crate/src/lib.rs",
     edition = "2021",
+    features = ["std"],
     visibility = [],
 )
 
@@ -1534,6 +1560,11 @@ cargo.rust_library(
     crate = "memchr",
     crate_root = "memchr-2.7.4.crate/src/lib.rs",
     edition = "2021",
+    features = [
+        "alloc",
+        "default",
+        "std",
+    ],
     visibility = [],
 )
 
@@ -1551,6 +1582,7 @@ cargo.rust_library(
     crate = "nonmax",
     crate_root = "nonmax-0.5.5.crate/src/lib.rs",
     edition = "2018",
+    features = ["std"],
     visibility = [],
 )
 
@@ -1731,6 +1763,10 @@ cargo.rust_binary(
     crate = "build_script_build",
     crate_root = "proc-macro2-1.0.93.crate/build.rs",
     edition = "2021",
+    features = [
+        "default",
+        "proc-macro",
+    ],
     visibility = [],
 )
 
@@ -1738,6 +1774,10 @@ buildscript_run(
     name = "proc-macro2-1.0.93-build-script-run",
     package_name = "proc-macro2",
     buildscript_rule = ":proc-macro2-1.0.93-build-script-build",
+    features = [
+        "default",
+        "proc-macro",
+    ],
     version = "1.0.93",
 )
 
@@ -1876,6 +1916,10 @@ cargo.rust_library(
     crate = "raw_window_handle",
     crate_root = "raw-window-handle-0.6.2.crate/src/lib.rs",
     edition = "2021",
+    features = [
+        "alloc",
+        "std",
+    ],
     visibility = [],
 )
 
@@ -1941,6 +1985,10 @@ cargo.rust_library(
     crate = "slab",
     crate_root = "slab-0.4.9.crate/src/lib.rs",
     edition = "2018",
+    features = [
+        "default",
+        "std",
+    ],
     visibility = [],
 )
 
@@ -1958,6 +2006,10 @@ cargo.rust_library(
     crate = "smallvec",
     crate_root = "smallvec-1.14.0.crate/src/lib.rs",
     edition = "2018",
+    features = [
+        "const_generics",
+        "union",
+    ],
     visibility = [],
 )
 
@@ -2255,6 +2307,7 @@ cargo.rust_library(
     crate = "unicode_xid",
     crate_root = "unicode-xid-0.2.6.crate/src/lib.rs",
     edition = "2015",
+    features = ["default"],
     visibility = [],
 )
 

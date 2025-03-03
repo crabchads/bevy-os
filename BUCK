@@ -1,4 +1,3 @@
-
 rust_binary(
     name = "bevy-os",
     srcs = ["src/main.rs"],

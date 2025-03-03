@@ -1,2 +1,4 @@
 /buck-*
-/target/
+target/
+vendor/
+third_party/.cargo

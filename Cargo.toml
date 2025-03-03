@@ -1,12 +1,36 @@
+[workspace]
+resolver = "2"
+members = []
+
 [package]
 name = "bevy-os"
-version = "0.1.0"
+version = "0.0.0"
+publish = false
 edition = "2024"
 
 [dependencies.bevy]
 git = "https://github.com/bushrat011899/bevy"
 branch = "NoSTDForBevyItselfV2"
 default-features = false
-features = [
-    "default_no_std",
-]
+features = ["default_no_std"]
+
+[dependencies]
+aarch64-cpu = "10.0.0"
+critical-section = { version = "1.2.0", features = ["restore-state-bool"] }
+# cortex-m = { version = "0.7.7", features = ["critical-section-single-core"]}
+goblin = { version = "0.9.3", default-features = false, features = [
+    "pe32",
+    "pe64",
+    "elf64",
+    "elf32",
+    "mach64",
+    "mach32",
+] }
+# TODO: linked_list_allocator isn't maintained anymore
+linked_list_allocator = { git = "https://github.com/pantsman0/linked-list-allocator/", branch = "multi_heap", version = "0.10.5" }
+multiboot2 = "0.23.1"
+once_cell = { version = "1.20.3", default-features = false, features = [
+    "race",
+] }
+spin = "0.9.8"
+# talc = { version = "4.4.2", default-features = false, features = ["lock_api"] }
