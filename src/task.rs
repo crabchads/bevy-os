@@ -1,5 +1,6 @@
 use bevy::{
 	app::Update,
+	ecs::entity::Entity,
 	prelude::{Component, Query},
 };
 
@@ -13,7 +14,7 @@ pub struct Process {
 
 #[derive(Component)]
 pub struct ElfProcess {
-	pub elf: goblin::elf::Elf,
+	pub elf: goblin::elf::Elf<'static>,
 }
 
 #[derive(Debug, PartialEq)]
@@ -36,13 +37,13 @@ fn setup_tasks(
 	processes: Query<(Entity, &Process)>,
 	elf_processes: Query<&ElfProcess>,
 ) {
-	for process in processes.iter() {
+	for (entity, process) in processes.iter() {
 		if process.state == ProcessState::Starting {
-			match elf_processes.get(process.id as usize) {
+			match elf_processes.get(entity) {
 				Ok(elf_process) => {
-					println!("Found ELF process: {:?}", elf_process);
 					println!("Starting process {}", process.id);
 				}
+				_ => {}
 			}
 		}
 	}

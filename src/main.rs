@@ -34,7 +34,7 @@ mod task;
 mod uart;
 
 // Define the heap size in bytes
-const HEAP_SIZE: usize = 1024 * 1024; 
+const HEAP_SIZE: usize = 1024 * 1024;
 
 // Static memory for the heap
 static mut HEAP: [u8; HEAP_SIZE] = [0; HEAP_SIZE];
@@ -44,10 +44,7 @@ static ALLOCATOR: LockedHeap = LockedHeap::empty();
 
 fn main() {
 	unsafe {
-		ALLOCATOR.lock().init(
-			&raw mut HEAP as *mut u8,
-			HEAP_SIZE,
-		);
+		ALLOCATOR.lock().init(&raw mut HEAP as *mut u8, HEAP_SIZE);
 	}
 
 	let result = App::new()
@@ -64,6 +61,8 @@ fn main() {
 }
 
 fn startup(mut commands: Commands) {
+	println!("Booting bevyOS...");
+
 	commands.spawn(task::Process {
 		id: 0,
 		state: task::ProcessState::Starting,
