@@ -11,7 +11,7 @@ fi
 
 qemu-system-aarch64 \
     -machine virt \
-    -cpu max \
+    -cpu cortex-a57 \
     -accel tcg,thread=multi \
     -m 1024M \
     -smp 4 \
@@ -19,4 +19,3 @@ qemu-system-aarch64 \
     -device virtio-gpu-pci \
     -serial mon:stdio \
     -kernel target/aarch64-unknown-none-softfloat/debug/bevy-os
-

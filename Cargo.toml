@@ -15,6 +15,7 @@ features = ["default_no_std"]
 
 [dependencies]
 aarch64-cpu = "10.0.0"
+bitflags = "2.9.0"
 critical-section = { version = "1.2.0", features = ["restore-state-bool"] }
 # cortex-m = { version = "0.7.7", features = ["critical-section-single-core"]}
 goblin = { version = "0.9.3", default-features = false, features = [
@@ -26,10 +27,11 @@ goblin = { version = "0.9.3", default-features = false, features = [
     "mach32",
 ] }
 # TODO: linked_list_allocator isn't maintained anymore
-linked_list_allocator = { git = "https://github.com/pantsman0/linked-list-allocator/", branch = "multi_heap", version = "0.10.5" }
+linked_list_allocator = { git = "https://github.com/pantsman0/linked-list-allocator", branch = "multi_heap", version = "0.10.5" }
 multiboot2 = "0.23.1"
 once_cell = { version = "1.20.3", default-features = false, features = [
     "race",
 ] }
 spin = "0.9.8"
+talc = { version = "4.4.2", default-features = false, features = ["lock_api", "allocator-api2"] }
 # talc = { version = "4.4.2", default-features = false, features = ["lock_api"] }

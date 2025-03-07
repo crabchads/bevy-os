@@ -1,42 +1,37 @@
-#![feature(naked_functions)]
 #![no_main]
 #![no_std]
 
-use core::arch::naked_asm;
+use core::{arch::global_asm, ptr::addr_of};
 
 use crate::task::TaskPlugin;
+use allocator::{Locked, bump::BumpAllocator};
 use bevy::{
 	DefaultPlugins,
 	app::{App, PanicHandlerPlugin, Startup},
 	prelude::{Commands, PluginGroup},
 };
+use linked_list_allocator::LockedHeap;
+use talc::{ClaimOnOom, Span, Talc, Talck};
 
-#[naked]
-#[unsafe(no_mangle)]
-pub unsafe extern "C" fn _start() -> ! {
-	unsafe {
-		naked_asm!(
-			"ldr x30, =stack_top",
-			"mov sp, x30",
-			"bl {main}",
-			main = sym main,
-		)
-	}
-}
+global_asm!(
+	".section .text",
+	".global _start",
+	"_start:",
+	"ldr x30, =stack_top",
+	"mov sp, x30",
+	"bl {main}",
+	main = sym main,
+);
 
 extern crate alloc;
 
-use linked_list_allocator::LockedHeap;
-
 mod allocator;
 mod critical_section;
+mod mmio;
 mod task;
 mod uart;
 
-// Define the heap size in bytes
-const HEAP_SIZE: usize = 1024 * 1024;
-
-// Static memory for the heap
+const HEAP_SIZE: usize = 1000;
 static mut HEAP: [u8; HEAP_SIZE] = [0; HEAP_SIZE];
 
 #[global_allocator]

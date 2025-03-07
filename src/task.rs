@@ -34,14 +34,16 @@ impl bevy::app::Plugin for TaskPlugin {
 }
 
 fn setup_tasks(
-	processes: Query<(Entity, &Process)>,
+	mut processes: Query<(Entity, &mut Process)>,
 	elf_processes: Query<&ElfProcess>,
 ) {
-	for (entity, process) in processes.iter() {
+	for (entity, mut process) in processes.iter_mut() {
 		if process.state == ProcessState::Starting {
 			match elf_processes.get(entity) {
 				Ok(elf_process) => {
 					println!("Starting process {}", process.id);
+
+					process.state = ProcessState::Running;
 				}
 				_ => {}
 			}

@@ -1,6 +1,10 @@
 use super::Locked;
 use alloc::alloc::GlobalAlloc;
-use core::{alloc::Layout, mem, ptr::{self, NonNull}};
+use core::{
+	alloc::Layout,
+	mem,
+	ptr::{self, NonNull},
+};
 
 struct ListNode {
 	next: Option<&'static mut ListNode>,
@@ -39,12 +43,12 @@ impl FixedSizeBlockAllocator {
 		}
 	}
 
-    fn fallback_alloc(&mut self, layout: Layout) -> *mut u8 {
-        match self.fallback_allocator.allocate_first_fit(layout) {
-            Some(ptr) => ptr.as_ptr(),
-            None => ptr::null_mut(),
-        }
-    }
+	fn fallback_alloc(&mut self, layout: Layout) -> *mut u8 {
+		match self.fallback_allocator.allocate_first_fit(layout) {
+			Some(ptr) => ptr.as_ptr(),
+			None => ptr::null_mut(),
+		}
+	}
 }
 
 /// Choose an appropriate block size for the given layout.
@@ -82,23 +86,24 @@ unsafe impl GlobalAlloc for Locked<FixedSizeBlockAllocator> {
 	}
 
 	unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
-        let mut allocator = self.lock();
-        match list_index(&layout) {
-            Some(index) => {
-                let new_node = ListNode {
-                    next: allocator.list_heads[index].take(),
-                };
-                // verify that block has size and alignment required for storing node
-                assert!(mem::size_of::<ListNode>() <= BLOCK_SIZES[index]);
-                assert!(mem::align_of::<ListNode>() <= BLOCK_SIZES[index]);
-                let new_node_ptr = ptr as *mut ListNode;
-                unsafe { new_node_ptr.write(new_node) };
-                allocator.list_heads[index] = Some(unsafe { &mut *new_node_ptr });
-            }
-            None => {
-                let ptr = NonNull::new(ptr).unwrap();
-                unsafe { allocator.fallback_allocator.deallocate(ptr, layout) };
-            }
-        }
+		let mut allocator = self.lock();
+		match list_index(&layout) {
+			Some(index) => {
+				let new_node = ListNode {
+					next: allocator.list_heads[index].take(),
+				};
+				// verify that block has size and alignment required for storing node
+				assert!(mem::size_of::<ListNode>() <= BLOCK_SIZES[index]);
+				assert!(mem::align_of::<ListNode>() <= BLOCK_SIZES[index]);
+				let new_node_ptr = ptr as *mut ListNode;
+				unsafe { new_node_ptr.write(new_node) };
+				allocator.list_heads[index] =
+					Some(unsafe { &mut *new_node_ptr });
+			}
+			None => {
+				let ptr = NonNull::new(ptr).unwrap();
+				unsafe { allocator.fallback_allocator.deallocate(ptr, layout) };
+			}
+		}
 	}
 }
