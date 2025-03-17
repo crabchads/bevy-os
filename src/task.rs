@@ -3,8 +3,7 @@ use bevy::{
 	ecs::entity::Entity,
 	prelude::{Component, Query},
 };
-
-use crate::println;
+use log::info;
 
 #[derive(Component)]
 pub struct Process {
@@ -41,7 +40,7 @@ fn setup_tasks(
 		if process.state == ProcessState::Starting {
 			match elf_processes.get(entity) {
 				Ok(elf_process) => {
-					println!("Starting process {}", process.id);
+					info!("Starting process {}", process.id);
 
 					process.state = ProcessState::Running;
 				}
