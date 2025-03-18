@@ -38,13 +38,10 @@ fn setup_tasks(
 ) {
 	for (entity, mut process) in processes.iter_mut() {
 		if process.state == ProcessState::Starting {
-			match elf_processes.get(entity) {
-				Ok(elf_process) => {
-					info!("Starting process {}", process.id);
+			if let Ok(_elf_process) = elf_processes.get(entity) {
+				info!("Starting process {}", process.id);
 
-					process.state = ProcessState::Running;
-				}
-				_ => {}
+				process.state = ProcessState::Running;
 			}
 		}
 	}

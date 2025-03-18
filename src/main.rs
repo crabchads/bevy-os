@@ -8,8 +8,9 @@ mod pl011;
 mod pl031;
 mod task;
 
+use core::panic::PanicInfo;
+
 use crate::pl011::Uart;
-use crate::pl031::Rtc;
 use arm_gic::gicv3::GicV3;
 use arm_gic::{IntId, Trigger, irq_enable};
 use bevy::prelude::Commands;
@@ -19,8 +20,6 @@ use bevy::{
 	prelude::{PluginGroup, Startup},
 };
 use buddy_system_allocator::LockedHeap;
-use chrono::{TimeZone, Utc};
-use core::panic::PanicInfo;
 use log::{LevelFilter, error, info};
 use smccc::Hvc;
 use smccc::psci::system_off;
@@ -34,8 +33,6 @@ const GICR_BASE_ADDRESS: *mut u64 = 0x80A_0000 as _;
 const PL011_BASE_ADDRESS: *mut u32 = 0x900_0000 as _;
 // ANCHOR_END: imports
 
-/// Base address of the PL031 RTC.
-const PL031_BASE_ADDRESS: *mut u32 = 0x901_0000 as _;
 /// The IRQ used by the PL031 RTC.
 const PL031_IRQ: IntId = IntId::spi(2);
 
@@ -47,7 +44,7 @@ static mut HEAP: [u8; HEAP_SIZE] = [0; HEAP_SIZE];
 
 // SAFETY: There is no other global function of this name.
 #[unsafe(no_mangle)]
-extern "C" fn main(x0: u64, x1: u64, x2: u64, x3: u64) {
+extern "C" fn main(_x0: u64, _x1: u64, _x2: u64, _x3: u64) {
 	// SAFETY: `HEAP` is only used here and `entry` is only called once.
 	unsafe {
 		// Give the allocator some memory to allocate.
