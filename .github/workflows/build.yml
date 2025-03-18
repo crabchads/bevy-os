@@ -1,0 +1,19 @@
+name: test suite
+on:
+    push:
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: dtolnay/rust-toolchain@stable
+              with:
+                targets: aarch64-unknown-none
+                components: clippy, rustfmt
+            - uses: dtolnay/install-buck2@latest
+            - run: |
+                cargo install cargo-deny
+                cargo deny check
+                cargo fmt -- --check
+                cargo clippy
+                cargo rustc --target aarch64-unknown-none -- -Clink-arg=-Tsrc/image.ld
