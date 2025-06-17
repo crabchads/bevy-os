@@ -1,5 +1,5 @@
 [workspace]
-resolver = "2"
+resolver = "3"
 members = []
 
 [package]
@@ -14,29 +14,14 @@ version = "0.16.0-dev"
 default-features = false
 features = ["default_no_std"]
 
-[dependencies.tracing]
-git = "https://github.com/bushrat011899/tracing"
-version = "0.2.0"
-# See https://github.com/tokio-rs/tracing/pull/3199
-branch = "portable-atomic"
-default-features = false
-
-[dependencies.tracing-subscriber]
-git = "https://github.com/bushrat011899/tracing"
-version = "0.3.0"
-# See https://github.com/tokio-rs/tracing/pull/3199
-branch = "portable-atomic"
-default-features = false
-
 [dependencies]
 aarch64-cpu = "10.0.0"
 arm-gic = "0.2.2"
-bitflags = "2.9.0"
+bitflags = "2.9.1"
 buddy_system_allocator = "0.11.0"
-chrono = { version = "0.4.40", default-features = false }
+chrono = { version = "0.4.41", default-features = false }
 critical-section = { version = "1.2.0", features = ["restore-state-bool"] }
-# cortex-m = { version = "0.7.7", features = ["critical-section-single-core"]}
-goblin = { version = "0.9.3", default-features = false, features = [
+goblin = { version = "0.10.0", default-features = false, features = [
     "pe32",
     "pe64",
     "elf64",
@@ -44,12 +29,12 @@ goblin = { version = "0.9.3", default-features = false, features = [
     "mach64",
     "mach32",
 ] }
-log = "0.4.26"
-once_cell = { version = "1.20.3", default-features = false, features = [
+log = "0.4.27"
+once_cell = { version = "1.21.3", default-features = false, features = [
     "race",
 ] }
-smccc = "0.1.1"
-spin = "0.9.8"
+smccc = "0.2.1"
+spin = "0.10.0"
 
 [build-dependencies]
-cc = { version = "1.2.16", features = ["parallel"] }
+cc = { version = "1.2.27", features = ["parallel"] }
