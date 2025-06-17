@@ -47,7 +47,7 @@ skip = [
 unknown-registry = "deny"
 unknown-git = "deny"
 allow-registry = ["https://github.com/rust-lang/crates.io-index"]
-allow-git = ["https://github.com/bevyengine/bevy", "https://github.com/bushrat011899/tracing"]
+allow-git = ["https://github.com/bevyengine/bevy"]
 
 # thiserror is the preferred way to derive error types
 [[bans.features]]
